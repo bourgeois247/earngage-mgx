@@ -1,0 +1,31 @@
+# EarnGage Image Placeholder Configuration
+
+This file contains information about the placeholder images needed for the EarnGage platform.
+
+## Brand Logo Images
+- /public/assets/images/brands/stylehaven.png - StyleHaven brand logo
+- /public/assets/images/brands/greenlife.png - GreenLife brand logo
+- /public/assets/images/brands/activepeak.png - ActivePeak brand logo
+- /public/assets/images/brands/plantbasics.png - PlantBasics brand logo
+
+## General Brand Logos
+- /public/assets/images/brand-logo-1.png - FitLife Athletics logo
+- /public/assets/images/brand-logo-2.png - Pure Essence logo
+- /public/assets/images/brand-logo-3.png - EcoWear logo
+- /public/assets/images/brand-logo-4.png - GreenFuel logo
+- /public/assets/images/brand-logo-5.png - HomeFit Pro logo
+- /public/assets/images/brand-logo-6.png - TechGear logo
+
+## Campaign Images
+- /public/assets/images/campaigns/summer-fashion.png - Summer Fashion Collection campaign image
+- /public/assets/images/campaigns/water-bottle.png - Eco-Friendly Water Bottle campaign image
+- /public/assets/images/campaigns/fitness-challenge.png - Fitness Challenge campaign image
+- /public/assets/images/campaigns/vegan-recipe.png - Vegan Recipe Creation campaign image
+
+## Hero and Dashboard Images
+- /public/assets/images/hero-image.png - Homepage hero image
+- /public/assets/images/creator-dashboard.png - Creator dashboard screenshot
+- /public/assets/images/brand-dashboard.png - Brand dashboard screenshot
+- /public/assets/images/campaign-placeholder.png - Generic campaign placeholder
+
+Note: These images need to be created as placeholders until real images are available.

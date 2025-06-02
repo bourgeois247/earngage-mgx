@@ -1,0 +1,118 @@
+sequenceDiagram
+    participant UI as Frontend UI
+    participant Auth as AuthService
+    participant Creator as CreatorService
+    participant Brand as BrandService
+    participant Campaign as CampaignService
+    participant Notif as NotificationService
+    participant Rows as RowsApiService
+    participant DB as Rows.com Database
+    
+    %% Authentication Flow
+    UI->>Auth: login(email, password)
+    Auth->>Rows: getRows("users", {email: email})
+    Rows->>DB: HTTP GET /tables/users?filter=email="..."
+    DB-->>Rows: Return user data
+    Rows-->>Auth: Return user data
+    Auth->>Auth: Verify password hash
+    Auth->>Auth: Generate JWT token
+    Auth-->>UI: Return auth result & token
+    UI->>UI: Store token in localStorage
+    
+    %% Creator Dashboard Flow
+    UI->>Creator: getCreatorProfile(creatorId)
+    Creator->>Rows: getRowById("creator_profiles", "creator_id", creatorId)
+    Rows->>DB: HTTP GET /tables/creator_profiles?filter=creator_id="..."
+    DB-->>Rows: Return profile data
+    Rows-->>Creator: Return processed profile
+    Creator-->>UI: Return creator profile
+    
+    UI->>Creator: getAnalytics(creatorId)
+    Creator->>Rows: getRows("analytics", {creator_id: creatorId})
+    Rows->>DB: HTTP GET /tables/analytics?filter=creator_id="..."
+    DB-->>Rows: Return analytics data
+    Rows-->>Creator: Return processed analytics
+    Creator-->>UI: Return formatted analytics
+    
+    UI->>Creator: getApplications(creatorId)
+    Creator->>Rows: getRows("applications", {creator_id: creatorId})
+    Rows->>DB: HTTP GET /tables/applications?filter=creator_id="..."
+    DB-->>Rows: Return applications data
+    Rows-->>Creator: Return processed applications
+    Creator-->>UI: Return applications list
+    
+    %% Campaign Discovery Flow
+    UI->>Campaign: getCampaigns({status: "active"})
+    Campaign->>Rows: getRows("campaigns", {status: "active", visibility: "public"})
+    Rows->>DB: HTTP GET /tables/campaigns?filter=status="active" AND visibility="public"
+    DB-->>Rows: Return campaigns data
+    Rows-->>Campaign: Return processed campaigns
+    Campaign-->>UI: Return campaigns list
+    
+    UI->>Campaign: getCampaignById(campaignId)
+    Campaign->>Rows: getRowById("campaigns", "campaign_id", campaignId)
+    Rows->>DB: HTTP GET /tables/campaigns?filter=campaign_id="..."
+    DB-->>Rows: Return campaign data
+    Rows-->>Campaign: Return processed campaign
+    Campaign-->>UI: Return campaign details
+    
+    %% Campaign Application Flow
+    UI->>Creator: applyCampaign(campaignId, creatorId, applicationData)
+    Creator->>Rows: createRow("applications", newApplicationData)
+    Rows->>Rows: processRecordForRows(newApplicationData)
+    Rows->>DB: HTTP POST /tables/applications
+    DB-->>Rows: Confirm creation
+    Rows-->>Creator: Return created application
+    
+    Creator->>Notif: createNotification({user_id: brandId, type: "application", ...})
+    Notif->>Rows: createRow("notifications", notificationData)
+    Rows->>DB: HTTP POST /tables/notifications
+    DB-->>Rows: Confirm creation
+    Rows-->>Notif: Return created notification
+    Notif-->>Creator: Confirm notification sent
+    Creator-->>UI: Return application confirmation
+    
+    %% Brand Campaign Management Flow
+    UI->>Brand: createCampaign(campaignData)
+    Brand->>Rows: createRow("campaigns", campaignData)
+    Rows->>Rows: processRecordForRows(campaignData)
+    Rows->>DB: HTTP POST /tables/campaigns
+    DB-->>Rows: Confirm creation
+    Rows-->>Brand: Return created campaign
+    Brand-->>UI: Return campaign confirmation
+    
+    UI->>Brand: getCampaignApplications(campaignId)
+    Brand->>Rows: getRows("applications", {campaign_id: campaignId})
+    Rows->>DB: HTTP GET /tables/applications?filter=campaign_id="..."
+    DB-->>Rows: Return applications data
+    Rows-->>Brand: Return processed applications
+    Brand-->>UI: Return applications list
+    
+    UI->>Brand: reviewApplication(applicationId, "approved")
+    Brand->>Rows: updateRow("applications", "application_id", applicationId, {status: "approved", approval_date: now()})
+    Rows->>DB: HTTP PATCH /tables/applications?filter=application_id="..."
+    DB-->>Rows: Confirm update
+    Rows-->>Brand: Return updated application
+    
+    Brand->>Notif: createNotification({user_id: creatorId, type: "application_approval", ...})
+    Notif->>Rows: createRow("notifications", notificationData)
+    Rows->>DB: HTTP POST /tables/notifications
+    DB-->>Rows: Confirm creation
+    Rows-->>Notif: Return created notification
+    Notif-->>Brand: Confirm notification sent
+    Brand-->>UI: Return approval confirmation
+    
+    %% Analytics Tracking Flow
+    UI->>Creator: updateCreatorProfile(creatorId, {instagram_handle: "new_handle"})
+    Creator->>Rows: updateRow("creator_profiles", "creator_id", creatorId, {instagram_handle: "new_handle"})
+    Rows->>DB: HTTP PATCH /tables/creator_profiles?filter=creator_id="..."
+    DB-->>Rows: Confirm update
+    Rows-->>Creator: Return updated profile
+    Creator-->>UI: Return confirmation
+    
+    %% This would happen on the backend/scheduled task in a real implementation
+    Note over UI,DB: Analytics collection (would be backend job)
+    UI->>Rows: createRow("analytics", newAnalyticsData)
+    Rows->>DB: HTTP POST /tables/analytics
+    DB-->>Rows: Confirm creation
+    Rows-->>UI: Return created analytics

@@ -1,0 +1,206 @@
+classDiagram
+    class User {
+        +string user_id
+        +string email
+        +string password_hash
+        +string user_type
+        +string name
+        +string profile_image
+        +Date date_joined
+        +string status
+        +string phone_number
+        +string country
+        +boolean verified
+        +Date last_login
+        +register()
+        +login()
+        +updateProfile()
+        +resetPassword()
+    }
+    
+    class CreatorProfile {
+        +string creator_id
+        +string bio
+        +string location
+        +string niche
+        +string[] portfolio_links
+        +string instagram_handle
+        +string twitter_handle
+        +string tiktok_handle
+        +string youtube_channel
+        +string facebook_page
+        +object followers_count
+        +object engagement_rate
+        +object bank_details
+        +string[] content_categories
+        +object[] showcase_items
+        +updateSocialProfiles()
+        +applyCampaign()
+        +getAnalytics()
+        +updateBankDetails()
+    }
+    
+    class BrandProfile {
+        +string brand_id
+        +string company_name
+        +string industry
+        +string description
+        +string website
+        +string logo_url
+        +string contact_email
+        +string contact_person
+        +string company_size
+        +number years_in_business
+        +object target_audience
+        +string[] brand_colors
+        +boolean payment_verified
+        +object social_media_links
+        +createCampaign()
+        +reviewApplications()
+        +getCampaignAnalytics()
+        +updatePaymentDetails()
+    }
+    
+    class Campaign {
+        +string campaign_id
+        +string brand_id
+        +string title
+        +string description
+        +string requirements
+        +object budget_range
+        +Date start_date
+        +Date end_date
+        +string status
+        +string[] niche_category
+        +object platform_requirements
+        +object[] deliverables
+        +Date application_deadline
+        +number min_followers
+        +string[] target_regions
+        +Date creation_date
+        +string visibility
+        +createCampaign()
+        +updateCampaign()
+        +pauseCampaign()
+        +endCampaign()
+        +getApplications()
+    }
+    
+    class Application {
+        +string application_id
+        +string campaign_id
+        +string creator_id
+        +string status
+        +string proposal
+        +Date date_applied
+        +number compensation_amount
+        +string[] platform_selection
+        +string proposed_content
+        +object expected_metrics
+        +string rejection_reason
+        +Date approval_date
+        +Date completion_date
+        +string payment_status
+        +submitApplication()
+        +updateStatus()
+        +requestPayment()
+        +uploadDeliverables()
+    }
+    
+    class Analytics {
+        +string record_id
+        +string creator_id
+        +string campaign_id
+        +Date date
+        +string platform
+        +string content_url
+        +number views
+        +number likes
+        +number comments
+        +number shares
+        +number clicks
+        +number conversions
+        +number earnings
+        +number reach
+        +number engagement_rate
+        +number impressions
+        +fetchAnalytics()
+        +calculateEngagement()
+        +generateReport()
+    }
+    
+    class Notification {
+        +string notification_id
+        +string user_id
+        +string message
+        +string type
+        +boolean is_read
+        +Date created_at
+        +string related_id
+        +markAsRead()
+        +createNotification()
+    }
+    
+    class RowsApiService {
+        +getRows(tableName, filters)
+        +getRowById(tableName, idField, id)
+        +createRow(tableName, data)
+        +updateRow(tableName, idField, id, data)
+        +deleteRow(tableName, idField, id)
+        +processRecordForRows(record)
+        +processRecordFromRows(record)
+    }
+    
+    class AuthService {
+        +register(userData)
+        +login(email, password)
+        +logout()
+        +getCurrentUser()
+        +updateUserProfile(userId, data)
+        +isAuthenticated()
+        +getAuthToken()
+    }
+    
+    class CreatorService {
+        +getCreatorProfile(creatorId)
+        +updateCreatorProfile(creatorId, data)
+        +getAnalytics(creatorId, dateRange)
+        +getApplications(creatorId, status)
+        +applyCampaign(campaignId, creatorId, applicationData)
+    }
+    
+    class BrandService {
+        +getBrandProfile(brandId)
+        +updateBrandProfile(brandId, data)
+        +createCampaign(campaignData)
+        +updateCampaign(campaignId, data)
+        +getCampaignApplications(campaignId, status)
+        +reviewApplication(applicationId, status, feedback)
+    }
+    
+    class CampaignService {
+        +getCampaigns(filters)
+        +getCampaignById(campaignId)
+        +getRecommendedCampaigns(creatorId)
+    }
+    
+    class NotificationService {
+        +getUserNotifications(userId)
+        +markAsRead(notificationId)
+        +createNotification(notification)
+    }
+    
+    User <|-- CreatorProfile : extends
+    User <|-- BrandProfile : extends
+    BrandProfile "1" -- "*" Campaign : creates
+    Campaign "1" -- "*" Application : receives
+    CreatorProfile "1" -- "*" Application : submits
+    CreatorProfile "1" -- "*" Analytics : generates
+    Campaign "1" -- "*" Analytics : measures
+    User "1" -- "*" Notification : receives
+    
+    AuthService ..> RowsApiService : uses
+    CreatorService ..> RowsApiService : uses
+    BrandService ..> RowsApiService : uses
+    CampaignService ..> RowsApiService : uses
+    NotificationService ..> RowsApiService : uses

@@ -1,0 +1,222 @@
+{
+  "users": [
+    {
+      "user_id": "usr-001",
+      "email": "creator1@example.com",
+      "password_hash": "$2a$10$XXXXXXXXXXXXXXXXXXXXXXXXXXX",
+      "user_type": "creator",
+      "name": "Adeola Johnson",
+      "profile_image": "https://randomuser.me/api/portraits/women/45.jpg",
+      "date_joined": "2023-09-15",
+      "status": "active",
+      "phone_number": "+2347012345678",
+      "country": "Nigeria",
+      "verified": true,
+      "last_login": "2023-05-29"
+    },
+    {
+      "user_id": "usr-002",
+      "email": "brand1@example.com",
+      "password_hash": "$2a$10$YYYYYYYYYYYYYYYYYYYYYYYYYYY",
+      "user_type": "brand",
+      "name": "Global Tech Nigeria",
+      "profile_image": "https://picsum.photos/id/1/200",
+      "date_joined": "2023-08-10",
+      "status": "active",
+      "phone_number": "+2348011223344",
+      "country": "Nigeria",
+      "verified": true,
+      "last_login": "2023-05-30"
+    },
+    {
+      "user_id": "usr-003",
+      "email": "creator2@example.com",
+      "password_hash": "$2a$10$ZZZZZZZZZZZZZZZZZZZZZZZZZZZ",
+      "user_type": "creator",
+      "name": "Chukwu Emmanuel",
+      "profile_image": "https://randomuser.me/api/portraits/men/32.jpg",
+      "date_joined": "2023-10-05",
+      "status": "active",
+      "phone_number": "+2348022334455",
+      "country": "Nigeria",
+      "verified": true,
+      "last_login": "2023-05-28"
+    }
+  ],
+  
+  "creator_profiles": [
+    {
+      "creator_id": "usr-001",
+      "bio": "Lifestyle and fashion creator focused on affordable Nigerian fashion and daily living tips.",
+      "location": "Lagos, Nigeria",
+      "niche": "Fashion & Lifestyle",
+      "portfolio_links": "[\"https://example.com/portfolio1\", \"https://example.com/portfolio2\"]",
+      "instagram_handle": "adeola_styles",
+      "twitter_handle": "adeola_j",
+      "tiktok_handle": "adeola_styles",
+      "youtube_channel": "UC123456789",
+      "facebook_page": "AdeolaJStyles",
+      "followers_count": "{\"instagram\": 25000, \"twitter\": 12000, \"tiktok\": 35000}",
+      "engagement_rate": "{\"instagram\": 3.5, \"twitter\": 2.1, \"tiktok\": 5.2}",
+      "bank_details": "{\"bank_name\": \"First Bank\", \"account_number\": \"**********\"}",
+      "content_categories": "[\"fashion\", \"lifestyle\", \"beauty\"]",
+      "showcase_items": "[{\"title\": \"Summer Fashion Tips\", \"url\": \"https://instagram.com/p/example1\", \"platform\": \"instagram\"}]"
+    },
+    {
+      "creator_id": "usr-003",
+      "bio": "Tech enthusiast and content creator focused on gadget reviews and tech tips for Nigerian users.",
+      "location": "Abuja, Nigeria",
+      "niche": "Technology",
+      "portfolio_links": "[\"https://example.com/tech1\", \"https://example.com/tech2\"]",
+      "instagram_handle": "emtech_reviews",
+      "twitter_handle": "emtech_ng",
+      "tiktok_handle": "emtech_reviews",
+      "youtube_channel": "UC987654321",
+      "facebook_page": "EmmanuelTechReviews",
+      "followers_count": "{\"instagram\": 18000, \"twitter\": 22000, \"youtube\": 45000}",
+      "engagement_rate": "{\"instagram\": 4.2, \"twitter\": 3.5, \"youtube\": 6.5}",
+      "bank_details": "{\"bank_name\": \"GT Bank\", \"account_number\": \"**********\"}",
+      "content_categories": "[\"technology\", \"gadgets\", \"reviews\"]",
+      "showcase_items": "[{\"title\": \"Budget Smartphones 2023\", \"url\": \"https://youtube.com/watch?v=example2\", \"platform\": \"youtube\"}]"
+    }
+  ],
+  
+  "brand_profiles": [
+    {
+      "brand_id": "usr-002",
+      "company_name": "Global Tech Nigeria",
+      "industry": "Technology",
+      "description": "Leading provider of consumer electronics and gadgets tailored for the Nigerian market.",
+      "website": "https://globaltechng.example.com",
+      "logo_url": "https://picsum.photos/id/1/200",
+      "contact_email": "marketing@globaltechng.example.com",
+      "contact_person": "Oluwaseun Adebayo",
+      "company_size": "medium",
+      "years_in_business": 7,
+      "target_audience": "{\"age\": [18, 45], \"gender\": \"all\", \"interests\": [\"technology\", \"gadgets\"]}",
+      "brand_colors": "[\"#3A86FF\", \"#FF006E\"]",
+      "payment_verified": true,
+      "social_media_links": "{\"instagram\": \"https://instagram.com/globaltechng\", \"twitter\": \"https://twitter.com/globaltechng\"}"
+    }
+  ],
+  
+  "campaigns": [
+    {
+      "campaign_id": "cmp-001",
+      "brand_id": "usr-002",
+      "title": "New Smartphone Launch Campaign",
+      "description": "Seeking creators to promote our new budget-friendly smartphone with emphasis on camera quality and battery life.",
+      "requirements": "Create engaging content showcasing the phone's camera capabilities and long battery life in real-world Nigerian scenarios.",
+      "budget_range": "{\"min\": 50000, \"max\": 200000, \"currency\": \"NGN\"}",
+      "start_date": "2023-06-10",
+      "end_date": "2023-07-10",
+      "status": "active",
+      "niche_category": "[\"technology\", \"lifestyle\", \"photography\"]",
+      "platform_requirements": "{\"instagram\": true, \"tiktok\": true, \"youtube\": false}",
+      "deliverables": "[{\"type\": \"post\", \"platform\": \"instagram\", \"quantity\": 2}, {\"type\": \"video\", \"platform\": \"tiktok\", \"quantity\": 1}]",
+      "application_deadline": "2023-06-05",
+      "min_followers": 10000,
+      "target_regions": "[\"Lagos\", \"Abuja\", \"Port Harcourt\"]",
+      "creation_date": "2023-05-20",
+      "visibility": "public"
+    },
+    {
+      "campaign_id": "cmp-002",
+      "brand_id": "usr-002",
+      "title": "Tech Accessories Review Program",
+      "description": "Looking for tech creators to review our new line of accessories including power banks, earbuds, and phone cases.",
+      "requirements": "Honest reviews highlighting durability and value for Nigerian consumers. Must include unboxing and real usage scenarios.",
+      "budget_range": "{\"min\": 30000, \"max\": 100000, \"currency\": \"NGN\"}",
+      "start_date": "2023-06-15",
+      "end_date": "2023-07-30",
+      "status": "active",
+      "niche_category": "[\"technology\", \"gadgets\", \"reviews\"]",
+      "platform_requirements": "{\"instagram\": false, \"youtube\": true, \"tiktok\": true}",
+      "deliverables": "[{\"type\": \"video\", \"platform\": \"youtube\", \"quantity\": 1}, {\"type\": \"video\", \"platform\": \"tiktok\", \"quantity\": 2}]",
+      "application_deadline": "2023-06-10",
+      "min_followers": 5000,
+      "target_regions": "[\"All Nigeria\"]",
+      "creation_date": "2023-05-25",
+      "visibility": "public"
+    }
+  ],
+  
+  "applications": [
+    {
+      "application_id": "app-001",
+      "campaign_id": "cmp-001",
+      "creator_id": "usr-003",
+      "status": "pending",
+      "proposal": "I can create engaging content showcasing the phone camera quality in various lighting conditions around Abuja, highlighting how it performs for everyday Nigerian users.",
+      "date_applied": "2023-05-28",
+      "compensation_amount": 150000,
+      "platform_selection": "[\"instagram\", \"tiktok\"]",
+      "proposed_content": "Two Instagram posts: one daytime photography showcase, one night mode feature. One TikTok video comparing camera quality to competitors.",
+      "expected_metrics": "{\"views\": 20000, \"engagement\": 4.5}",
+      "rejection_reason": null,
+      "approval_date": null,
+      "completion_date": null,
+      "payment_status": "pending"
+    }
+  ],
+  
+  "analytics": [
+    {
+      "record_id": "anl-001",
+      "creator_id": "usr-001",
+      "campaign_id": null,
+      "date": "2023-05-25",
+      "platform": "instagram",
+      "content_url": "https://instagram.com/p/example_post",
+      "views": 12500,
+      "likes": 1830,
+      "comments": 145,
+      "shares": 78,
+      "clicks": null,
+      "conversions": null,
+      "earnings": null,
+      "reach": 18000,
+      "engagement_rate": 3.8,
+      "impressions": 22000
+    },
+    {
+      "record_id": "anl-002",
+      "creator_id": "usr-003",
+      "campaign_id": null,
+      "date": "2023-05-26",
+      "platform": "youtube",
+      "content_url": "https://youtube.com/watch?v=example_video",
+      "views": 5600,
+      "likes": 620,
+      "comments": 89,
+      "shares": 45,
+      "clicks": 210,
+      "conversions": null,
+      "earnings": null,
+      "reach": 7800,
+      "engagement_rate": 4.2,
+      "impressions": 9500
+    }
+  ],
+  
+  "notifications": [
+    {
+      "notification_id": "not-001",
+      "user_id": "usr-002",
+      "message": "New application received for 'New Smartphone Launch Campaign'",
+      "type": "application",
+      "is_read": false,
+      "created_at": "2023-05-28",
+      "related_id": "app-001"
+    },
+    {
+      "notification_id": "not-002",
+      "user_id": "usr-003",
+      "message": "Your application has been received for 'New Smartphone Launch Campaign'",
+      "type": "application",
+      "is_read": true,
+      "created_at": "2023-05-28",
+      "related_id": "app-001"
+    }
+  ]
+}
