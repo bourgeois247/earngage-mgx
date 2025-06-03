@@ -12,6 +12,8 @@ const Register = () => {
   const queryParams = new URLSearchParams(location.search);
   
   // Form state
+  const [firstname, setFirstname] = useState('');
+  const [surname, setSurname] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
@@ -32,7 +34,7 @@ const Register = () => {
     e.preventDefault();
     
     // Form validation
-    if (!email || !password || !confirmPassword) {
+    if (!firstname || !surname || !email || !password || !confirmPassword) {
       setError('Please fill out all fields');
       return;
     }
@@ -57,7 +59,8 @@ const Register = () => {
       setIsLoading(true);
       
       // Register the user
-      const response = await register(email, password, userType);
+      console.log(firstname, surname, email, password, userType);
+      await register({ firstname, surname, email, password, userType });
       
       // After registration, redirect to profile setup
       navigate(`/${userType}/profile`);
@@ -129,6 +132,44 @@ const Register = () => {
                     Brand
                   </button>
                 </div>
+              </div>
+            </div>
+
+            <div>
+              <label htmlFor="firstname" className="block text-sm font-medium text-gray-700">
+                Firstname
+              </label>
+              <div className="mt-1">
+                <input
+                  id="firstname"
+                  name="firstname"
+                  type="text"
+                  autoComplete="firstname"
+                  required
+                  value={firstname}
+                  onChange={(e) => setFirstname(e.target.value)}
+                  className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+                  placeholder="Folake"
+                />
+              </div>
+            </div>
+
+            <div>
+              <label htmlFor="surname" className="block text-sm font-medium text-gray-700">
+                Surname
+              </label>
+              <div className="mt-1">
+                <input
+                  id="surname"
+                  name="surname"
+                  type="text"
+                  autoComplete="surname"
+                  required
+                  value={surname}
+                  onChange={(e) => setSurname(e.target.value)}
+                  className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+                  placeholder="Pakurumo"
+                />
               </div>
             </div>
 

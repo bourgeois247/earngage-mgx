@@ -8,9 +8,19 @@
 import axios from 'axios';
 
 // Configuration - Store these in environment variables in production
-const ROWS_API_KEY = process.env.REACT_APP_ROWS_API_KEY || 'your_rows_api_key';
-const ROWS_WORKSPACE_ID = process.env.REACT_APP_ROWS_WORKSPACE_ID || 'your_workspace_id';
-const ROWS_BASE_URL = `https://api.rows.com/v1/workspaces/${ROWS_WORKSPACE_ID}`;
+// const ROWS_API_KEY = process.env.ROWS_API_KEY || 'your_rows_api_key';
+const ROWS_API_KEY = 'rows-1UyEuE7xIVS2rAfXfWCpuuUWKKpLsKokoZoXl2WdXHJm';
+const ROWS_WORKSPACE_ID = 'c6e8cbde-6bfb-4771-ac17-e5091d5b6905';
+const ROWS_FOLDER_ID = '0fde34b5-9966-420e-a635-2063a2788e8f';
+const ROWS_SPREADSHEET_ID = '2Sb44dkdiVpZkU4fUL0xM';
+
+const ROWS_USERS_PAGE_ID = 'd11cea89-6ce8-48d9-b53b-a41b8035ad1d';
+const ROWS_USERS_TABLE_ID = 'b3705f9a-15e9-4894-a62e-94c094b05221';
+
+const ROWS_CAMPAIGNS_PAGE_ID = '72031e93-ada8-4b61-a395-6c203fad5dd8';
+const ROWS_CAMPAIGNS_TABLE_ID = '912a2e72-8a6d-415a-8d41-e407fa6d3de5';
+
+const ROWS_BASE_URL = `https://api.rows.com/v1`;
 
 // Create axios instance with authentication headers
 const rowsApi = axios.create({
@@ -166,16 +176,20 @@ export const getUserByEmail = async (email) => {
  * Create a new user
  */
 export const createUser = async (userData) => {
+  console.log('From API: ', userData)
   const newUser = {
-    user_id: userData.user_id || `usr-${generateUUID().substring(0, 8)}`,
-    ...userData
+    id: `usr-${generateUUID().substring(0, 8)}`,
+    ...userData,
+    created_at: new Date().toISOString(),
+    last_login: new Date().toISOString(),
   };
-  
+
   return apiHandler(async () => {
-    const url = `/tables/users/rows`;
-    const response = await rowsApi.post(url, prepareRecordForSave(newUser));
-    response.data = processRecordFromRows(response.data);
-    return response;
+    const url = `/spreadsheets/${ROWS_SPREADSHEET_ID}/tables/${ROWS_USERS_TABLE_ID}/values/A:H:append`;
+    const payload = { values: [Object.values(prepareRecordForSave(newUser))] };
+    console.log(url, payload);
+    await rowsApi.post(url, payload);
+    return newUser;
   });
 };
 

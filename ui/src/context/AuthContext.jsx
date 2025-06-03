@@ -94,20 +94,21 @@ export const AuthProvider = ({ children }) => {
       
       // Store the token in local storage
       localStorage.setItem('auth_token', response.token);
+      localStorage.setItem('user', JSON.stringify(userData));
       
       // Set the user in state
-      setCurrentUser(response.user);
+      setCurrentUser(userData);
       
       // Set the initial profile
-      if (response.user.userType === 'creator') {
-        const profile = await api.users.getCreatorProfile(response.user.id);
+      if (userData.userType === 'creator') {
+        const profile = await api.users.getUserProfile(userData);
         setUserProfile(profile);
-      } else if (response.user.userType === 'brand') {
-        const profile = await api.users.getBrandProfile(response.user.id);
+      } else if (userData.userType === 'brand') {
+        const profile = await api.users.getUserProfile(userData);
         setUserProfile(profile);
       }
       
-      return response.user;
+      return userData;
     } catch (error) {
       setError(error.message || "Registration failed. Please try again.");
       throw error;

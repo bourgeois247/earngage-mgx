@@ -1,5 +1,6 @@
 // src/services/auth.js
 import { rowsApi } from './rowsApi';
+import { createUser } from '../../../earngage_api_service';
 
 // Instead of handling JWT ourselves, we'll rely on the backend for token generation and validation
 
@@ -60,17 +61,17 @@ export const loginUser = async (email, password) => {
  */
 export const registerUser = async (userData) => {
   try {
-    const { email, password, userType, ...otherData } = userData;
+    const { email, password, userType, firstname, surname } = userData;
     
     // Normalize email address
     const normalizedEmail = email.toLowerCase().trim();
     
     // Check if user with this email already exists
-    const existingUsers = await rowsApi.query('users', { email: normalizedEmail });
+    // const existingUsers = await rowsApi.query('users', { email: normalizedEmail });
     
-    if (existingUsers && existingUsers.length > 0) {
-      throw new Error('User with this email already exists');
-    }
+    // if (existingUsers && existingUsers.length > 0) {
+    //   throw new Error('User with this email already exists');
+    // }
     
     // In a real implementation, this would send data to a secure backend endpoint
     // that would handle password hashing and user creation
@@ -79,42 +80,23 @@ export const registerUser = async (userData) => {
     // In production, the password would be hashed on the server-side
     const mockHashedPassword = `${password}_hashed`; // Simulate hashing (NEVER do this in production!)
     
-    const newUser = await rowsApi.create('users', {
+    // const newUser = await rowsApi.create('users', {
+    //   email: normalizedEmail,
+    //   password: mockHashedPassword, // This would normally be properly hashed on the server
+    //   userType: userType || 'creator', // Default to creator if not specified
+    //   createdAt: new Date(),
+    //   updatedAt: new Date(),
+    // });
+
+    const newUser = await createUser({
+      firstname,
+      surname,
       email: normalizedEmail,
-      password: mockHashedPassword, // This would normally be properly hashed on the server
-      userType: userType || 'creator', // Default to creator if not specified
-      createdAt: new Date(),
-      updatedAt: new Date(),
+      password: mockHashedPassword,
+      role: userType,
     });
-    
-    // Create appropriate profile based on user type
-    if (userType === 'creator') {
-      await rowsApi.create('creator_profiles', {
-        userId: newUser.id,
-        displayName: otherData.displayName || '',
-        bio: otherData.bio || '',
-        avatarUrl: otherData.avatarUrl || '',
-        socialLinks: otherData.socialLinks || {},
-        categories: otherData.categories || [],
-        followerCount: otherData.followerCount || 0,
-        engagementRate: otherData.engagementRate || 0,
-        createdAt: new Date(),
-        updatedAt: new Date(),
-      });
-    } else if (userType === 'brand') {
-      await rowsApi.create('brand_profiles', {
-        userId: newUser.id,
-        companyName: otherData.companyName || '',
-        logoUrl: otherData.logoUrl || '',
-        industry: otherData.industry || '',
-        companySize: otherData.companySize || '',
-        website: otherData.website || '',
-        description: otherData.description || '',
-        createdAt: new Date(),
-        updatedAt: new Date(),
-      });
-    }
-    
+    console.log(newUser);
+
     // Generate a mock token (in a real app, this would come from the backend)
     const token = `mock_token_${Date.now()}_${Math.random().toString(36).substring(2, 15)}`;
     
@@ -141,6 +123,10 @@ export const validateToken = async (token) => {
     // In a real implementation, this would validate the token with a backend endpoint
     // For now, we'll simulate by checking if the token starts with our mock prefix
     // and extracting a user ID from it
+    const userLocalStorage = localStorage.getItem('user');
+    if (userLocalStorage) {
+      return JSON.parse(userLocalStorage);
+    }
     
     if (!token || !token.startsWith('mock_token_')) {
       return null;

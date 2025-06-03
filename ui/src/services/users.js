@@ -8,6 +8,7 @@ import { rowsApi } from './rowsApi';
  */
 export const getCreatorProfile = async (userId) => {
   try {
+    
     // First check if user exists and is a creator
     const user = await rowsApi.getById('users', userId);
     
@@ -34,6 +35,19 @@ export const getCreatorProfile = async (userId) => {
     throw new Error(error.message || 'Error fetching creator profile');
   }
 };
+
+/**
+ * Get a creator's profile by user ID
+ * @param {string} userId - User ID
+ * @returns {Promise<Object>} - Creator profile
+ */
+export const getUserProfile = async (user) => {
+  return {
+    displayName: user.firstname,
+    email: user.email,
+    userType: user.userType
+  };
+}
 
 /**
  * Get a brand's profile by user ID

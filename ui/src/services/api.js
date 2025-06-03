@@ -49,6 +49,13 @@ const api = {
     getCreatorProfile: users.getCreatorProfile,
     
     /**
+     * Get a user's profile
+     * @param {Object} user - User object
+     * @returns {Object} - User profile
+     */
+    getUserProfile: users.getUserProfile,
+    
+    /**
      * Get a brand's profile
      * @param {string} userId - User ID
      * @returns {Promise<Object>} - Brand profile
